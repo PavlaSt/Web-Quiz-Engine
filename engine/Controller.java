@@ -32,12 +32,13 @@ public class Controller {
         }
     }
     @PostMapping(path = "/api/quizzes/{id}/solve")
-    public Answer checkSolution(@PathVariable Long id,@Valid  @RequestBody (required = false) Guess guess){ //@RequestParam  (required = false) int[] answer) { //(value = "answer")
+    public Answer checkSolution(@PathVariable Long id,
+                                @Valid  @RequestBody (required = false) Guess guess){
         Question question = repository.findById(id);
         if (question.equals(null)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        System.out.println("contoller answer/option: " + guess);
+        System.out.println("controller answer/option: " + guess);
 
         if(question.isCorrect(guess.getAnswer())) {
             return Answer.CORRECT_ANSWER;

@@ -98,21 +98,7 @@ public class Question {
     }
 
     public boolean isCorrect(int[] option) {
-/*
-        if ((Objects.equals(answer, null)) && (Objects.equals(option, new int[0]))) {
-            return true;
-        }
-        if ((Objects.equals(option, null)) && (Objects.equals(answer, new int[0]))) {
-            return true;
-        }
 
-        if (!(option.equals(null)) && !(option.equals(new int[0]))) {
-            Arrays.sort(option);
-        }
-     if (option.length > 0) {
-            Arrays.sort(option);
-        }
-    */
         System.out.println("answer: " + Arrays.toString(answer));
         System.out.println("option: " + Arrays.toString(option));
         int[] x = null;

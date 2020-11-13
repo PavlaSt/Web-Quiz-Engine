@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -15,29 +17,26 @@ public class Controller {
         this.repository = repository;
     }
 
-    /*@GetMapping(path = "/api/quiz")
+    @GetMapping(path = "/api/quiz")
     public Question getQuestion() {
         return Question.QUESTION;
     }
 
     @PostMapping(path = "/api/quiz")
-    public Answer checkAnswer(@RequestParam(value = "answer") int option) {
+    public Answer checkAnswer(@RequestParam(value = "answer") int[] option) {
         if (Question.QUESTION.isCorrect(option)) {
             return Answer.CORRECT_ANSWER;
         } else {
             return Answer.WRONG_ANSWER;
         }
-    }*/
+    }
     @PostMapping(path = "/api/quizzes/{id}/solve")
-    public Answer checkSolution(@PathVariable Long id, @RequestParam(value = "answer") int option) {
-        System.out.println("id: " + id);
+    public Answer checkSolution(@PathVariable Long id,@Valid  @RequestParam  (required = false) int[] answer) { //(value = "answer")
         Question question = repository.findById(id);
-        System.out.println(question);
-        System.out.println("option: " + option);
         if (question.equals(null)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        if(question.isCorrect(option)) {
+        if(question.isCorrect(answer)) {
             return Answer.CORRECT_ANSWER;
         } else {
             return Answer.WRONG_ANSWER;
@@ -47,7 +46,6 @@ public class Controller {
     @PostMapping(path = "/api/quizzes")
     @ResponseBody
     public Question createQuestion(@RequestBody Question postedQuestion) {
-        System.out.println(postedQuestion);
         repository.save(postedQuestion);
         return repository.findLast();
     }

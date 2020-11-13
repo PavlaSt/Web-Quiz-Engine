@@ -3,31 +3,47 @@ package engine;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Question {
     public static final Question QUESTION = new Question(1L, "The Java Logo",
             "What is depicted on the Java logo?",
-            new String[]{"Robot", "Tea leaf", "Cup of coffee", "Bug"}, 2);
+            new String[]{"Robot", "Tea leaf", "Cup of coffee", "Bug"}, new int[]{2});
 
     private Long id;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private String text;
+    @NotNull
+    @Size(min = 2)
     private String[] options;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private int answer;
+    private int[] answer = null;
 
     public Question() {
     }
 
-    public Question(String title, String text, String[] options, int answer) {
+    public Question(String title, String text, String[] options) {
+        this.title = title;
+        this.text = text;
+        this.options = options;
+        this.answer = new int[]{};
+    }
+
+    public Question(String title, String text, String[] options, int[] answer) {
         this.title = title;
         this.text = text;
         this.options = options;
         this.answer = answer;
     }
 
-    public Question(Long id, String title, String text, String[] options, int answer) {
+    public Question(Long id, String title, String text, String[] options, int[] answer) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -56,11 +72,16 @@ public class Question {
     }
 
     @JsonIgnore
-    public int getAnswer() {
+    public int[] getAnswer() {
+        int[] x = null;
+        if (Objects.equals(x, answer)) {
+            int[] ints = new int[0];
+            return ints;
+        }
         return answer;
     }
 
-    public void setAnswer(int answer) {
+    public void setAnswer(int[] answer) {
         this.answer = answer;
     }
 
@@ -76,8 +97,31 @@ public class Question {
         return options.clone();
     }
 
-    public boolean isCorrect(int option) {
-        return answer == option;
+    public boolean isCorrect(int[] option) {
+/*
+        if ((Objects.equals(answer, null)) && (Objects.equals(option, new int[0]))) {
+            return true;
+        }
+        if ((Objects.equals(option, null)) && (Objects.equals(answer, new int[0]))) {
+            return true;
+        }
+
+        if (!(option.equals(null)) && !(option.equals(new int[0]))) {
+            Arrays.sort(option);
+        }
+     if (option.length > 0) {
+            Arrays.sort(option);
+        }
+    */
+        int[] x = null;
+        if (Objects.equals(x, option)) {
+            option = new int[0];
+        }
+        Arrays.sort(option);
+        Arrays.sort(answer);
+
+
+        return answer.equals(option);
     }
 
     @Override

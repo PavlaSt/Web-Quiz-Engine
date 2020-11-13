@@ -6,6 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -31,12 +32,14 @@ public class Controller {
         }
     }
     @PostMapping(path = "/api/quizzes/{id}/solve")
-    public Answer checkSolution(@PathVariable Long id,@Valid  @RequestParam  (required = false) int[] answer) { //(value = "answer")
+    public Answer checkSolution(@PathVariable Long id,@Valid  @RequestBody (required = false) Guess guess){ //@RequestParam  (required = false) int[] answer) { //(value = "answer")
         Question question = repository.findById(id);
         if (question.equals(null)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        if(question.isCorrect(answer)) {
+        System.out.println("contoller answer/option: " + guess);
+
+        if(question.isCorrect(guess.getAnswer())) {
             return Answer.CORRECT_ANSWER;
         } else {
             return Answer.WRONG_ANSWER;
@@ -45,7 +48,7 @@ public class Controller {
 
     @PostMapping(path = "/api/quizzes")
     @ResponseBody
-    public Question createQuestion(@RequestBody Question postedQuestion) {
+    public Question createQuestion(@Valid @RequestBody Question postedQuestion) {
         repository.save(postedQuestion);
         return repository.findLast();
     }

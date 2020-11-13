@@ -113,6 +113,8 @@ public class Question {
             Arrays.sort(option);
         }
     */
+        System.out.println("answer: " + Arrays.toString(answer));
+        System.out.println("option: " + Arrays.toString(option));
         int[] x = null;
         if (Objects.equals(x, option)) {
             option = new int[0];
@@ -121,7 +123,7 @@ public class Question {
         Arrays.sort(answer);
 
 
-        return answer.equals(option);
+        return  Arrays.equals(answer, option); //answer.equals(option);
     }
 
     @Override

@@ -18,13 +18,7 @@ public class QuestionRepository {
     }
 
     public QuestionRepository() {
-//        save(new Question("The Java Logo",
-//                "What is depicted on the Java logo?",
-//                new String[]{"Robot", "Tea leaf", "Cup of coffee", "Bug"},
-//                2));
-//        save(new Question("The Ultimate Question",
-//                "What is the answer to the Ultimate Question of Life, the Universe and Everything?",
-//                new String[] {"Everything goes right","42","2+2=4","11011100"}, 0));
+
     }
 
     public synchronized List<Question> findAll() {

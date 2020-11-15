@@ -87,6 +87,7 @@ public class Question {
             int[] ints = new int[0];
             return ints;
         }
+
         return answer;
     }
 
@@ -115,10 +116,10 @@ public class Question {
             option = new int[0];
         }
         Arrays.sort(option);
-        Arrays.sort(answer);
+        //Arrays.sort(answer);
 
 
-        return  Arrays.equals(answer, option); //answer.equals(option);
+        return  Arrays.equals(getAnswer(), option); //answer.equals(option);
     }
 
     @Override

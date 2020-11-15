@@ -9,7 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
-@RestController
+
+/*Controller for saving in memory*/
+//@RestController
 public class Controller {
 
     private QuestionRepository repository;

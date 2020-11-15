@@ -7,7 +7,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+/*Repository for saving in memory*/
+//@Repository
 public class QuestionRepository {
 
     private Long idSequence = 1L;

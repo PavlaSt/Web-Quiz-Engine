@@ -1,8 +1,7 @@
-package memory_saving;
+package deprecated;
 
 import engine.Question;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;

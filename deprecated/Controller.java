@@ -1,4 +1,4 @@
-package memory_saving;
+package deprecated;
 
 import engine.Answer;
 import engine.Guess;

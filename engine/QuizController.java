@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,8 @@ public class QuizController {
 
     @Autowired
     private QuizRepository quizRepository;
+
+    private List<User> userList = new ArrayList<>();
 
     @GetMapping("/quizzes")
     public List<Question> getAllQuestions() {
@@ -35,12 +38,21 @@ public class QuizController {
         return quizRepository.save(question);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
+        userList.add(user);
+
+        return ResponseEntity.ok().body("OK");
+    }
+
+
+
     @PostMapping(path = "/quizzes/{id}/solve")
     public ResponseEntity<Answer> checkSolution(@PathVariable(value = "id") Long questionId,
                                                 @RequestBody  Guess guess){
         System.out.println("checkSolution :" + questionId + "--"+ guess);
         Question question = quizRepository.findById(questionId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "debile"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         System.out.println("controller answer/option: " + guess);
 
         if(question.isCorrect(guess.getAnswer())) {
